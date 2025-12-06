@@ -53,7 +53,8 @@ const router = Router();
  *                 items:
  *                   type: string
  *                   enum: [landlord, tenant, admin]
- *                 example: [tenant]
+ *                 description: Optional. Defaults to empty array if not provided.
+ *                 example: []
  *     responses:
  *       201:
  *         description: User registered successfully
@@ -215,6 +216,10 @@ router.get('/me', authenticate, getCurrentUser);
  *               image:
  *                 type: string
  *                 format: uri
+ *               checkpoint:
+ *                 type: string
+ *                 enum: [onboarding, complete]
+ *                 description: Update user onboarding status
  *               landlord_profile:
  *                 type: object
  *               tenant_profile:

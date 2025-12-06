@@ -7,6 +7,7 @@ export interface IUser extends Document {
   image?: string;
   google_id?: string;
   roles: ('landlord' | 'tenant' | 'admin')[];
+  checkpoint: 'onboarding' | 'complete';
 
   landlord_profile?: {
     verification_status: 'pending' | 'verified' | 'rejected';
@@ -51,7 +52,12 @@ const UserSchema = new Schema<IUser>(
     roles: {
       type: [String],
       enum: ['landlord', 'tenant', 'admin'],
-      default: ['tenant'],
+      default: [],
+    },
+    checkpoint: {
+      type: String,
+      enum: ['onboarding', 'complete'],
+      default: 'onboarding',
     },
 
     landlord_profile: {

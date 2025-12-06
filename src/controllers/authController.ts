@@ -26,7 +26,8 @@ export const register = async (req: Request, res: Response, next: NextFunction):
       name,
       email: email.toLowerCase(),
       password: hashedPassword,
-      roles: roles || ['tenant'],
+      roles: roles || [],
+      checkpoint: 'onboarding',
     });
 
     // Generate token
@@ -45,6 +46,7 @@ export const register = async (req: Request, res: Response, next: NextFunction):
           email: user.email,
           roles: user.roles,
           image: user.image,
+          checkpoint: user.checkpoint,
         },
         token,
       },
@@ -92,6 +94,7 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
           email: user.email,
           roles: user.roles,
           image: user.image,
+          checkpoint: user.checkpoint,
         },
         token,
       },
@@ -152,7 +155,8 @@ export const firebaseAuth = async (
         email: email.toLowerCase(),
         google_id: uid,
         image: picture,
-        roles: ['tenant'],
+        roles: [],
+        checkpoint: 'onboarding',
       });
     }
 
@@ -172,6 +176,7 @@ export const firebaseAuth = async (
           email: user.email,
           roles: user.roles,
           image: user.image,
+          checkpoint: user.checkpoint,
         },
         token,
       },

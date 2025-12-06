@@ -81,7 +81,14 @@ const swaggerDefinition = {
               type: 'string',
               enum: ['landlord', 'tenant', 'admin'],
             },
-            example: ['tenant'],
+            example: [],
+            description: 'User roles array. Empty by default for new users.',
+          },
+          checkpoint: {
+            type: 'string',
+            enum: ['onboarding', 'complete'],
+            example: 'onboarding',
+            description: 'User onboarding status. Set to "onboarding" for new users.',
           },
           image: {
             type: 'string',
