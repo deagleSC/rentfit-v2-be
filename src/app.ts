@@ -66,6 +66,7 @@ import paymentRoutes from './routes/paymentRoutes';
 import inspectionRoutes from './routes/inspectionRoutes';
 import notificationRoutes from './routes/notificationRoutes';
 import ticketRoutes from './routes/ticketRoutes';
+import cloudinaryRoutes from './routes/cloudinaryRoutes';
 
 app.use('/api/auth', authRoutes);
 app.use('/api/properties', propertyRoutes);
@@ -74,6 +75,7 @@ app.use('/api/payments', paymentRoutes);
 app.use('/api/inspections', inspectionRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/tickets', ticketRoutes);
+app.use('/api/cloudinary', cloudinaryRoutes);
 
 // 404 handler
 app.use((_req: Request, res: Response) => {

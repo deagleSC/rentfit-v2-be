@@ -213,6 +213,7 @@ router.get('/me', authenticate, getCurrentUser);
  *             properties:
  *               name:
  *                 type: string
+ *                 minLength: 2
  *               image:
  *                 type: string
  *                 format: uri
@@ -222,12 +223,173 @@ router.get('/me', authenticate, getCurrentUser);
  *                 description: Update user onboarding status
  *               landlord_profile:
  *                 type: object
+ *                 properties:
+ *                   verification_status:
+ *                     type: string
+ *                     enum: [pending, verified, rejected]
+ *                   phone:
+ *                     type: string
+ *                   alternate_phone:
+ *                     type: string
+ *                   address:
+ *                     type: string
+ *                   city:
+ *                     type: string
+ *                   state:
+ *                     type: string
+ *                   pincode:
+ *                     type: string
+ *                   upi_id:
+ *                     type: string
+ *                   pan_number:
+ *                     type: string
+ *                   aadhaar_number:
+ *                     type: string
+ *                   gst_number:
+ *                     type: string
+ *                   company_name:
+ *                     type: string
+ *                   company_registration_number:
+ *                     type: string
+ *                   bank_details:
+ *                     type: object
+ *                     properties:
+ *                       account_number:
+ *                         type: string
+ *                       ifsc_code:
+ *                         type: string
+ *                       account_holder_name:
+ *                         type: string
+ *                       bank_name:
+ *                         type: string
+ *                       branch_name:
+ *                         type: string
+ *                   documents:
+ *                     type: object
+ *                     properties:
+ *                       pan_document:
+ *                         type: string
+ *                         format: uri
+ *                       aadhaar_document:
+ *                         type: string
+ *                         format: uri
+ *                       bank_statement:
+ *                         type: string
+ *                         format: uri
+ *                       gst_certificate:
+ *                         type: string
+ *                         format: uri
  *               tenant_profile:
  *                 type: object
+ *                 properties:
+ *                   kyc_status:
+ *                     type: string
+ *                     enum: [pending, verified, rejected]
+ *                   phone:
+ *                     type: string
+ *                   alternate_phone:
+ *                     type: string
+ *                   date_of_birth:
+ *                     type: string
+ *                     format: date
+ *                   gender:
+ *                     type: string
+ *                     enum: [male, female, other, prefer_not_to_say]
+ *                   current_employer:
+ *                     type: string
+ *                   job_title:
+ *                     type: string
+ *                   employment_type:
+ *                     type: string
+ *                     enum: [full_time, part_time, contract, self_employed, unemployed, student]
+ *                   monthly_income:
+ *                     type: number
+ *                     minimum: 0
+ *                   permanent_address:
+ *                     type: string
+ *                   current_address:
+ *                     type: string
+ *                   city:
+ *                     type: string
+ *                   state:
+ *                     type: string
+ *                   pincode:
+ *                     type: string
+ *                   pan_number:
+ *                     type: string
+ *                   aadhaar_number:
+ *                     type: string
+ *                   emergency_contact:
+ *                     type: object
+ *                     properties:
+ *                       name:
+ *                         type: string
+ *                       phone:
+ *                         type: string
+ *                       relation:
+ *                         type: string
+ *                       email:
+ *                         type: string
+ *                         format: email
+ *                   previous_landlord_contact:
+ *                     type: object
+ *                     description: Optional previous landlord contact information
+ *                     properties:
+ *                       name:
+ *                         type: string
+ *                       phone:
+ *                         type: string
+ *                       email:
+ *                         type: string
+ *                         format: email
+ *                   employer_contact:
+ *                     type: object
+ *                     description: Optional employer contact information
+ *                     properties:
+ *                       name:
+ *                         type: string
+ *                       phone:
+ *                         type: string
+ *                       email:
+ *                         type: string
+ *                         format: email
+ *                       designation:
+ *                         type: string
+ *                   documents:
+ *                     type: object
+ *                     properties:
+ *                       pan_document:
+ *                         type: string
+ *                         format: uri
+ *                       aadhaar_document:
+ *                         type: string
+ *                         format: uri
+ *                       employment_letter_document:
+ *                         type: string
+ *                         format: uri
+ *                         description: Employment letter document URL
+ *                       salary_slip:
+ *                         type: string
+ *                         format: uri
+ *                       previous_rent_agreement:
+ *                         type: string
+ *                         format: uri
+ *                         description: Optional previous rent agreement document URL
  *     responses:
  *       200:
  *         description: Profile updated successfully
- *         $ref: '#/components/schemas/Success'
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     user:
+ *                       $ref: '#/components/schemas/User'
  *       401:
  *         description: Unauthorized
  *         $ref: '#/components/schemas/Error'
