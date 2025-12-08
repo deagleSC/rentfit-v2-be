@@ -140,7 +140,7 @@ router.post('/login', validate(loginSchema), login);
  *             required:
  *               - idToken
  *             properties:
- *               idToken:
+ *               id_token:
  *                 type: string
  *                 description: Firebase ID token from frontend
  *                 example: eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2...
@@ -221,6 +221,13 @@ router.get('/me', authenticate, getCurrentUser);
  *                 type: string
  *                 enum: [onboarding, complete]
  *                 description: Update user onboarding status
+ *               roles:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                   enum: [landlord, tenant, admin]
+ *                 description: Update user roles. Optional array of roles.
+ *                 example: [landlord, tenant]
  *               landlord_profile:
  *                 type: object
  *                 properties:

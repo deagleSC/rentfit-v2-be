@@ -111,16 +111,16 @@ export const firebaseAuth = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { idToken } = req.body;
+    const { id_token } = req.body;
 
-    if (!idToken) {
+    if (!id_token) {
       throw createError('Firebase ID token is required', HTTP_STATUS.BAD_REQUEST);
     }
 
     // Verify the Firebase ID token
     let decodedToken;
     try {
-      decodedToken = await admin.auth().verifyIdToken(idToken);
+      decodedToken = await admin.auth().verifyIdToken(id_token);
     } catch (error) {
       throw createError('Invalid or expired Firebase token', HTTP_STATUS.UNAUTHORIZED);
     }
@@ -216,6 +216,17 @@ export const updateProfile = async (
   try {
     const userId = req.user?._id;
     const updateData = req.body;
+
+    // Handle roles array separately if provided
+    if (updateData.roles !== undefined) {
+      // Validate roles array
+      const validRoles = ['landlord', 'tenant', 'admin'];
+      const roles = Array.isArray(updateData.roles)
+        ? updateData.roles.filter((role: string) => validRoles.includes(role))
+        : [];
+
+      updateData.roles = roles;
+    }
 
     const user = await User.findByIdAndUpdate(
       userId,

@@ -254,6 +254,209 @@ const swaggerDefinition = {
           },
         },
       },
+      Property: {
+        type: 'object',
+        properties: {
+          _id: {
+            type: 'string',
+            example: '507f1f77bcf86cd799439011',
+          },
+          owner: {
+            type: 'string',
+            example: '507f1f77bcf86cd799439012',
+            description: 'User ID of the property owner',
+          },
+          title: {
+            type: 'string',
+            example: 'Beautiful 2BHK Apartment',
+          },
+          address: {
+            type: 'object',
+            properties: {
+              society_name: {
+                type: 'string',
+                example: 'Green Valley Society',
+              },
+              street: {
+                type: 'string',
+                example: '123 Main Street',
+              },
+              locality: {
+                type: 'string',
+                example: 'Andheri West',
+              },
+              city: {
+                type: 'string',
+                example: 'Mumbai',
+              },
+              state: {
+                type: 'string',
+                example: 'Maharashtra',
+              },
+              pincode: {
+                type: 'string',
+                example: '400053',
+              },
+              latitude: {
+                type: 'number',
+                example: 19.1234,
+              },
+              longitude: {
+                type: 'number',
+                example: 72.5678,
+              },
+              map_link: {
+                type: 'string',
+                format: 'uri',
+                example: 'https://maps.google.com/?q=19.1234,72.5678',
+              },
+            },
+            required: ['street', 'city', 'state', 'pincode'],
+          },
+          specs: {
+            type: 'object',
+            properties: {
+              bhk: {
+                type: 'string',
+                enum: ['1RK', '1BHK', '2BHK', '3BHK', '4BHK+'],
+                example: '2BHK',
+              },
+              property_type: {
+                type: 'string',
+                enum: ['apartment', 'house', 'villa', 'studio', 'penthouse', 'commercial', 'other'],
+                example: 'apartment',
+              },
+              bathrooms: {
+                type: 'number',
+                example: 2,
+              },
+              balconies: {
+                type: 'number',
+                example: 1,
+              },
+              furnishing_status: {
+                type: 'string',
+                enum: ['fully_furnished', 'semi_furnished', 'unfurnished'],
+                example: 'fully_furnished',
+              },
+              size_sq_ft: {
+                type: 'number',
+                example: 1200,
+              },
+              floor_number: {
+                type: 'number',
+                example: 5,
+              },
+              total_floors: {
+                type: 'number',
+                example: 10,
+              },
+              property_age_years: {
+                type: 'number',
+                example: 5,
+              },
+            },
+            required: ['bhk', 'property_type', 'bathrooms', 'furnishing_status', 'size_sq_ft'],
+          },
+          amenities: {
+            type: 'array',
+            items: {
+              type: 'string',
+            },
+            example: ['Parking', 'Lift', 'Security', 'Gym'],
+          },
+          media: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                url: {
+                  type: 'string',
+                  format: 'uri',
+                },
+                type: {
+                  type: 'string',
+                  enum: ['image', 'video'],
+                },
+                caption: {
+                  type: 'string',
+                },
+                uploaded_at: {
+                  type: 'string',
+                  format: 'date-time',
+                },
+              },
+            },
+          },
+          expected_rent: {
+            type: 'number',
+            example: 25000,
+          },
+          expected_deposit: {
+            type: 'number',
+            example: 100000,
+          },
+          description: {
+            type: 'string',
+            example: 'Beautiful apartment with modern amenities in prime location',
+          },
+          maintenance_details: {
+            type: 'object',
+            properties: {
+              amount: {
+                type: 'number',
+                example: 2000,
+              },
+              frequency: {
+                type: 'string',
+                enum: ['monthly', 'quarterly', 'yearly'],
+                example: 'monthly',
+              },
+              included_in_rent: {
+                type: 'boolean',
+                example: false,
+              },
+              description: {
+                type: 'string',
+                example: 'Maintenance charges for common area',
+              },
+            },
+          },
+          status: {
+            type: 'string',
+            enum: ['vacant', 'occupied', 'maintenance'],
+            example: 'vacant',
+          },
+          available_from: {
+            type: 'string',
+            format: 'date-time',
+            example: '2024-02-01T00:00:00Z',
+          },
+          current_agreement: {
+            type: 'string',
+            nullable: true,
+            example: '507f1f77bcf86cd799439013',
+            description: 'Agreement ID if property is currently occupied',
+          },
+          created_at: {
+            type: 'string',
+            format: 'date-time',
+          },
+          updated_at: {
+            type: 'string',
+            format: 'date-time',
+          },
+        },
+        required: [
+          'owner',
+          'title',
+          'address',
+          'specs',
+          'expected_rent',
+          'expected_deposit',
+          'status',
+        ],
+      },
     },
   },
   tags: [

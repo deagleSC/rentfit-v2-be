@@ -12,9 +12,19 @@ export const createPropertySchema = z.object({
       pincode: z.string().min(6, 'Pincode must be at least 6 characters'),
       latitude: z.number().optional(),
       longitude: z.number().optional(),
+      map_link: z.string().url().optional().or(z.literal('')),
     }),
     specs: z.object({
       bhk: z.enum(['1RK', '1BHK', '2BHK', '3BHK', '4BHK+']),
+      property_type: z.enum([
+        'apartment',
+        'house',
+        'villa',
+        'studio',
+        'penthouse',
+        'commercial',
+        'other',
+      ]),
       bathrooms: z.number().min(0),
       balconies: z.number().min(0).optional(),
       furnishing_status: z.enum(['fully_furnished', 'semi_furnished', 'unfurnished']),
@@ -26,6 +36,7 @@ export const createPropertySchema = z.object({
     amenities: z.array(z.string()).optional(),
     expected_rent: z.number().min(0),
     expected_deposit: z.number().min(0),
+    description: z.string().optional(),
     maintenance_details: z
       .object({
         amount: z.number().min(0).optional(),
@@ -52,11 +63,15 @@ export const updatePropertySchema = z.object({
         pincode: z.string().optional(),
         latitude: z.number().optional(),
         longitude: z.number().optional(),
+        map_link: z.string().url().optional().or(z.literal('')),
       })
       .optional(),
     specs: z
       .object({
         bhk: z.enum(['1RK', '1BHK', '2BHK', '3BHK', '4BHK+']).optional(),
+        property_type: z
+          .enum(['apartment', 'house', 'villa', 'studio', 'penthouse', 'commercial', 'other'])
+          .optional(),
         bathrooms: z.number().min(0).optional(),
         balconies: z.number().min(0).optional(),
         furnishing_status: z.enum(['fully_furnished', 'semi_furnished', 'unfurnished']).optional(),
@@ -69,6 +84,7 @@ export const updatePropertySchema = z.object({
     amenities: z.array(z.string()).optional(),
     expected_rent: z.number().min(0).optional(),
     expected_deposit: z.number().min(0).optional(),
+    description: z.string().optional(),
     status: z.enum(['vacant', 'occupied', 'maintenance']).optional(),
   }),
   params: z.object({

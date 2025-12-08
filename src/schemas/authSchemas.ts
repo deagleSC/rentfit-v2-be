@@ -21,7 +21,7 @@ export const loginSchema = z.object({
 // Firebase authentication schema
 export const firebaseAuthSchema = z.object({
   body: z.object({
-    idToken: z.string().min(1, 'Firebase ID token is required'),
+    id_token: z.string().min(1, 'Firebase ID token is required'),
   }),
 });
 
@@ -31,6 +31,7 @@ export const updateProfileSchema = z.object({
     name: z.string().min(2).optional(),
     image: z.string().url().optional(),
     checkpoint: z.enum(['onboarding', 'complete']).optional(),
+    roles: z.array(z.enum(['landlord', 'tenant', 'admin'])).optional(),
     landlord_profile: z
       .object({
         verification_status: z.enum(['pending', 'verified', 'rejected']).optional(),

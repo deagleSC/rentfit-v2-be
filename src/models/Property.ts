@@ -13,10 +13,19 @@ export interface IProperty extends Document {
     pincode: string;
     latitude?: number;
     longitude?: number;
+    map_link?: string;
   };
 
   specs: {
     bhk: '1RK' | '1BHK' | '2BHK' | '3BHK' | '4BHK+';
+    property_type:
+      | 'apartment'
+      | 'house'
+      | 'villa'
+      | 'studio'
+      | 'penthouse'
+      | 'commercial'
+      | 'other';
     bathrooms: number;
     balconies: number;
     furnishing_status: 'fully_furnished' | 'semi_furnished' | 'unfurnished';
@@ -37,6 +46,7 @@ export interface IProperty extends Document {
 
   expected_rent: number;
   expected_deposit: number;
+  description?: string;
   maintenance_details?: {
     amount: number;
     frequency: 'monthly' | 'quarterly' | 'yearly';
@@ -71,12 +81,18 @@ const PropertySchema = new Schema<IProperty>(
       pincode: { type: String, required: true, trim: true },
       latitude: Number,
       longitude: Number,
+      map_link: { type: String, trim: true },
     },
 
     specs: {
       bhk: {
         type: String,
         enum: ['1RK', '1BHK', '2BHK', '3BHK', '4BHK+'],
+        required: true,
+      },
+      property_type: {
+        type: String,
+        enum: ['apartment', 'house', 'villa', 'studio', 'penthouse', 'commercial', 'other'],
         required: true,
       },
       bathrooms: { type: Number, required: true, min: 0 },
@@ -105,6 +121,7 @@ const PropertySchema = new Schema<IProperty>(
 
     expected_rent: { type: Number, required: true, min: 0 },
     expected_deposit: { type: Number, required: true, min: 0 },
+    description: { type: String, trim: true },
 
     maintenance_details: {
       amount: { type: Number, min: 0 },
